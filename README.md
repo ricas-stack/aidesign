@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -145,7 +144,6 @@
             overflow: hidden;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid transparent;
         }
 
         .note-card:hover {
@@ -282,9 +280,7 @@
             "猫咪迷惑行为大赏🐱",
             "数码控：iPhone 15 Pro 深度测评📱",
             "上海探店 | 隐藏在弄堂里的神仙Bistro🍷",
-            "极简主义生活 | 扔掉这10样东西，家里大一倍",
-            "春日野餐攻略，这些装备不能少🍱",
-            "发型教程 | 手残党也能学会的温柔盘发"
+            "极简主义生活 | 扔掉这10样东西，家里大一倍"
         ];
 
         const container = document.getElementById('waterfall-container');
@@ -306,18 +302,15 @@
             card.className = 'note-card';
 
             // 随机高度图片模拟 (用 picsum.photos 生成随机图片)
-            // 宽度固定为300，高度随机(200-450)以模拟瀑布流效果
-            const imgHeight = randomInt(200, 450); 
+            // 宽度固定，高度随机以模拟瀑布流
+            const imgHeight = randomInt(200, 400); 
             const title = mockTitles[index % mockTitles.length];
             const likes = randomInt(10, 5000);
             const username = `用户${randomInt(1000, 9999)}`;
-            
-            // 格式化点赞数
-            const likeText = likes > 1000 ? (likes/1000).toFixed(1) + 'k' : likes;
 
             card.innerHTML = `
                 <div class="card-image">
-                    <img src="https://picsum.photos/300/${imgHeight}?random=${index + Math.random()}" alt="Cover" loading="lazy">
+                    <img src="https://picsum.photos/300/${imgHeight}?random=${index}" alt="Cover">
                     ${Math.random() > 0.7 ? '<span class="play-icon">▶</span>' : ''}
                 </div>
                 <div class="card-content">
@@ -329,7 +322,7 @@
                         </div>
                         <div class="like-info">
                             <span class="heart-icon">♡</span>
-                            <span>${likeText}</span>
+                            <span>${likes > 1000 ? (likes/1000).toFixed(1)+'k' : likes}</span>
                         </div>
                     </div>
                 </div>
@@ -347,8 +340,8 @@
 
         // 简单的无限滚动模拟
         window.addEventListener('scroll', () => {
-            // 当滚动到距离底部 300px 时加载更多
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 300) {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+                // 触底加载更多
                 for (let i = 0; i < 10; i++) {
                     container.appendChild(createCard(randomInt(100, 999)));
                 }
@@ -359,4 +352,3 @@
     </script>
 </body>
 </html>
-```
